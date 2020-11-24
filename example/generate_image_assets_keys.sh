@@ -1,0 +1,1 @@
+flutter pub run images_keys:images_keys -S assets/images -O lib/res/images -o images_keys.images_keys.dart

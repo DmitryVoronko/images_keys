@@ -1,0 +1,11 @@
+name: example
+description: images_keys usage example.
+
+version: 0.0.1
+
+environment:
+  sdk: '>=2.10.0 <3.0.0'
+
+dependencies:
+  images_keys:
+    path: ../
