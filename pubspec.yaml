@@ -1,5 +1,5 @@
 name: images_keys
-description: Easy keys generator for image assets.
+description: A simple and easy command-line generation tool generating image assets keys for Dart and Flutter projects.
 version: 0.0.1
 repository: https://github.com/DmitryVoronko/images_keys
 
