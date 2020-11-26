@@ -1,10 +1,10 @@
 name: images_keys
 description: A simple and easy command-line generation tool generating image assets keys for Dart and Flutter projects.
-version: 0.0.1
+version: 0.0.2
 repository: https://github.com/DmitryVoronko/images_keys
 
 environment:
-  sdk: '>=2.10.0 <3.0.0'
+  sdk: '>=2.7.0 <3.0.0'
 
 dependencies:
   args: ^1.6.0

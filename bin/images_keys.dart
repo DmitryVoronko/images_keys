@@ -90,14 +90,10 @@ void handleLangFiles(GenerateOptions options) async {
   }
 }
 
-Future<List<FileSystemEntity>> dirContents(Directory dir) {
-  var files = <FileSystemEntity>[];
-  var completer = Completer<List<FileSystemEntity>>();
-  var lister = dir.list(recursive: false);
-  lister.listen((file) => files.add(file),
-      onDone: () => completer.complete(files));
-  return completer.future;
-}
+Future<List<FileSystemEntity>> dirContents(Directory dir) async => dir
+    .listSync(recursive: false)
+    .where((element) => FileSystemEntity.isFileSync(element.path))
+    .toList();
 
 void generateFile(List<FileSystemEntity> files, Directory outputPath) async {
   var generatedFile = File(outputPath.path);
