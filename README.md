@@ -1,3 +1,4 @@
+![Dart](https://github.com/DmitryVoronko/images_keys/workflows/Dart/badge.svg)
 [![style: effective dart](https://img.shields.io/badge/style-effective_dart-40c4ff.svg)](https://pub.dev/packages/effective_dart)
 
 A simple and easy command-line generation tool generating image assets keys for Dart and Flutter projects. 
