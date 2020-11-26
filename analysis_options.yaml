@@ -2,10 +2,14 @@ include: package:effective_dart/analysis_options.yaml
 
 # For lint rules and documentation, see http://dart-lang.github.io/linter/lints.
 # Uncomment to specify additional rules.
-# linter:
-#   rules:
-#     - camel_case_types
+linter:
+  rules:
+    prefer_final_locals: true
+    prefer_expression_function_bodies: true
+    prefer_typing_uninitialized_variables: true
+    omit_local_variable_types: false
+    avoid_types_on_closure_parameters: false
 
 analyzer:
-#   exclude:
-#     - path/to/excluded/files/**
+  exclude:
+    - example/**

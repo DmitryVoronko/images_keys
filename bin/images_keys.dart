@@ -12,9 +12,8 @@ void main(List<String> args) {
   }
 }
 
-bool _isHelpCommand(List<String> args) {
-  return args.length == 1 && (args[0] == '--help' || args[0] == '-h');
-}
+bool _isHelpCommand(List<String> args) =>
+    args.length == 1 && (args[0] == '--help' || args[0] == '-h');
 
 void _printHelperDisplay() {
   final ArgParser parser = _generateArgParser(null);
@@ -64,9 +63,9 @@ class GenerateOptions {
   String outputFile;
 
   @override
-  String toString() {
-    return 'GenerateOptions{sourceDirs: $sourceDirs, outputDir: $outputDir, outputFile: $outputFile}';
-  }
+  String toString() =>
+      'GenerateOptions{sourceDirs: $sourceDirs, outputDir: $outputDir,'
+      ' outputFile: $outputFile}';
 }
 
 void handleLangFiles(GenerateOptions options) async {
@@ -83,7 +82,7 @@ void handleLangFiles(GenerateOptions options) async {
   if (!sourcePaths.every((element) => element.existsSync())) {
     final nonexistentSourcePaths =
         sourcePaths.where((element) => !element.existsSync());
-    printError('Some source paths does not exist: ${nonexistentSourcePaths}');
+    printError('Some source paths does not exist: $nonexistentSourcePaths');
     return;
   }
 
@@ -128,7 +127,7 @@ Future _writeKeys(
   final keys = files.map((element) {
     final keyName = path.basename(element.path).replaceAll('.', '_');
     final keyValue = "'${path.relative(element.path)}'";
-    return '  static const ${keyName} = ${keyValue};';
+    return '  static const $keyName = $keyValue;';
   });
 
   classBuilder.writeAll(keys, '\n');
