@@ -1,9 +1,9 @@
+[![style: effective dart](https://img.shields.io/badge/style-effective_dart-40c4ff.svg)](https://pub.dev/packages/effective_dart)
+
 A simple and easy command-line generation tool generating image assets keys for Dart and Flutter projects. 
 Inspired by [easy_localization:generate](https://github.com/aissat/easy_localization#-code-generation).
 
-# Getting Started
-
-## Motivation
+# Motivation
 
 In Flutter you need use asset path string directly:
 
@@ -20,7 +20,7 @@ The safe way to pass it to generation tool:
 Image.asset(ImagesKeys.image_png)
 ```
 
-## Installation
+# Installation
 
 Add to your pubspec.yaml:
 
@@ -29,7 +29,7 @@ dependencies:
   images_keys: <last_version>
 ```
 
-## Usage
+# Usage
 
 You can simply get information about command line arguments. 
 Open terminal in your project path and run command:
@@ -49,7 +49,7 @@ flutter pub run images_keys:images_keys -h
 | Arguments | Short |  Default | Description |
 | ------ | ------ |  ------ | ------ |
 | --help | -h |  | Help info |
-| --source-dir | -S | assets/images | Folder containing image files |
+| --source-dir | -S | assets/images | Folders containing image files |
 | --output-dir | -O | lib/generated | Output folder stores for the generated file |
 | --output-file | -o | images_keys.images_keys.dart | Output file name |
 

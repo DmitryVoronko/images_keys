@@ -40,6 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset(ImagesKeys.logo_dart_png),
+            Image.asset(ImagesKeys.baseline_sentiment_png),
           ],
         ),
       ),
