@@ -4,11 +4,11 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:path/path.dart' as path;
 
-void main(List<String> args) {
+Future<void> main(List<String> args) async {
   if (_isHelpCommand(args)) {
     _printHelperDisplay();
   } else {
-    handleLangFiles(_generateOption(args));
+    await handleLangFiles(_generateOption(args));
   }
 }
 
@@ -22,40 +22,32 @@ void _printHelperDisplay() {
 
 GenerateOptions _generateOption(List<String> args) {
   final GenerateOptions generateOptions = GenerateOptions();
-  final ArgParser parser = _generateArgParser(generateOptions);
-  parser.parse(args);
+  _generateArgParser(generateOptions).parse(args);
   return generateOptions;
 }
 
-ArgParser _generateArgParser(GenerateOptions generateOptions) {
-  final ArgParser parser = ArgParser();
-
-  parser.addMultiOption(
+ArgParser _generateArgParser(GenerateOptions generateOptions) => ArgParser()
+  ..addMultiOption(
     'source-dir',
     abbr: 'S',
     defaultsTo: ['assets/images', 'assets/icons'],
     callback: (List<String> x) => generateOptions.sourceDirs = x,
     help: 'Folders containing image files',
-  );
-
-  parser.addOption(
+  )
+  ..addOption(
     'output-dir',
     abbr: 'O',
     defaultsTo: 'lib/generated',
     callback: (String x) => generateOptions.outputDir = x,
     help: 'Output folder stores for the generated file',
-  );
-
-  parser.addOption(
+  )
+  ..addOption(
     'output-file',
     abbr: 'o',
     defaultsTo: 'images_keys.images_keys.dart',
     callback: (String x) => generateOptions.outputFile = x,
     help: 'Output file name',
   );
-
-  return parser;
-}
 
 class GenerateOptions {
   List<String> sourceDirs;
@@ -68,7 +60,7 @@ class GenerateOptions {
       ' outputFile: $outputFile}';
 }
 
-void handleLangFiles(GenerateOptions options) async {
+Future<void> handleLangFiles(GenerateOptions options) async {
   final Directory current = Directory.current;
   final List<Directory> sourcePaths = options.sourceDirs
       .map((uri) => Directory.fromUri(Uri.parse(uri)))
@@ -89,7 +81,7 @@ void handleLangFiles(GenerateOptions options) async {
   final List<FileSystemEntity> files = await dirsContents(sourcePaths);
 
   if (files.isNotEmpty) {
-    generateFile(files, outputPath);
+    await generateFile(files, outputPath);
   } else {
     printError('Source path empty');
   }
@@ -101,7 +93,10 @@ Future<List<FileSystemEntity>> dirsContents(List<Directory> dirs) async => dirs
     .where((element) => FileSystemEntity.isFileSync(element.path))
     .toList();
 
-void generateFile(List<FileSystemEntity> files, Directory outputPath) async {
+Future<void> generateFile(
+  List<FileSystemEntity> files,
+  Directory outputPath,
+) async {
   final File generatedFile = File(outputPath.path);
   if (!generatedFile.existsSync()) {
     generatedFile.createSync(recursive: true);
@@ -120,9 +115,12 @@ Future _writeKeys(
   StringBuffer classBuilder,
   List<FileSystemEntity> files,
 ) async {
-  classBuilder.writeln(
-      '// DO NOT EDIT. This is code generated via package:images_keys/generate.dart');
-  classBuilder.writeln('abstract class ImagesKeys {');
+  classBuilder
+    ..writeln(
+      '// DO NOT EDIT. This is code generated via '
+      'package:images_keys/generate.dart',
+    )
+    ..writeln('abstract class ImagesKeys {');
 
   final keys = files.map((element) {
     final keyName = path.basename(element.path).replaceAll('.', '_');
@@ -130,10 +128,10 @@ Future _writeKeys(
     return '  static const $keyName = $keyValue;';
   });
 
-  classBuilder.writeAll(keys, '\n');
-  classBuilder.write('\n');
-
-  classBuilder.writeln('}');
+  classBuilder
+    ..writeAll(keys, '\n')
+    ..write('\n')
+    ..writeln('}');
 }
 
 void printInfo(String info) {
