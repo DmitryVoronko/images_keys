@@ -26,33 +26,33 @@ GenerateOptions _generateOption(List<String> args) {
   return generateOptions;
 }
 
-ArgParser _generateArgParser(GenerateOptions generateOptions) => ArgParser()
+ArgParser _generateArgParser(GenerateOptions? generateOptions) => ArgParser()
   ..addMultiOption(
     'source-dir',
     abbr: 'S',
     defaultsTo: ['assets/images', 'assets/icons'],
-    callback: (List<String> x) => generateOptions.sourceDirs = x,
+    callback: (List<String> x) => generateOptions?.sourceDirs = x,
     help: 'Folders containing image files',
   )
   ..addOption(
     'output-dir',
     abbr: 'O',
     defaultsTo: 'lib/generated',
-    callback: (String x) => generateOptions.outputDir = x,
+    callback: (String? x) => generateOptions?.outputDir = x!,
     help: 'Output folder stores for the generated file',
   )
   ..addOption(
     'output-file',
     abbr: 'o',
     defaultsTo: 'images_keys.images_keys.dart',
-    callback: (String x) => generateOptions.outputFile = x,
+    callback: (String? x) => generateOptions?.outputFile = x!,
     help: 'Output file name',
   );
 
 class GenerateOptions {
-  List<String> sourceDirs;
-  String outputDir;
-  String outputFile;
+  late List<String> sourceDirs;
+  late String outputDir;
+  late String outputFile;
 
   @override
   String toString() =>
